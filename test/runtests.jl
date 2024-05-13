@@ -51,16 +51,15 @@ end
     @test z4.π isa Matrix && z4.π == collect(z1.π) && z4.ECV == z1.ECV
 end
 
-using JET
 @testset "static analysis with JET.jl" begin
+    using JET
     @test isempty(JET.get_reports(report_package(DiscreteChoiceCalculations,
                                                  target_modules=(DiscreteChoiceCalculations,))))
 end
 
-## NOTE add Aqua to the test environment, then uncomment
-# @testset "QA with Aqua" begin
-#     import Aqua
-#     Aqua.test_all(DiscreteChoiceCalculations; ambiguities = false)
-#     # testing separately, cf https://github.com/JuliaTesting/Aqua.jl/issues/77
-#     Aqua.test_ambiguities(DiscreteChoiceCalculations)
-# end
+@testset "QA with Aqua" begin
+    import Aqua
+    Aqua.test_all(DiscreteChoiceCalculations; ambiguities = false)
+    # testing separately, cf https://github.com/JuliaTesting/Aqua.jl/issues/77
+    Aqua.test_ambiguities(DiscreteChoiceCalculations)
+end
