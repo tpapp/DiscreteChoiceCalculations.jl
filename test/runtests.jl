@@ -40,7 +40,7 @@ end
 
 @testset "Gumbel noise — input shape preservation" begin
     noise = Gumbel(0.2, 0.3)
-    V1 = SMatrix{2,3}(1:6)
+    V = SMatrix{2,3}(1:6)
     z1 = ECV_and_probabilities(noise, V)
     @test z1.π isa SMatrix{2,3}
     z2 = ECV_and_probabilities(noise, SVector(V))
