@@ -30,7 +30,7 @@ function ECV_and_probabilities(noise::Gumbel, V)
     μ = location(noise)
     σ = scale(noise)
     M = maximum(V)              # subtract maximum for numerical stability
-    v = exp.((V .- M) / σ)
+    v = exp.((V .- M) ./ σ)
     (ECV = σ * (log(sum(v)) + MathConstants.eulergamma) + M + μ, π = v ./ sum(v))
 end
 

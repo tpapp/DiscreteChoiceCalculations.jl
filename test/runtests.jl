@@ -24,7 +24,7 @@ function simulate_noise(noise, V; N = 10000)
     (ECV = ΣV / N, π = cπ ./ N)
 end
 
-@testset "Gumbel noise" begin
+@testset "Gumbel noise — comparison with simulations" begin
     for μ in [0.0, 0.5, 1.0, -2.0]
         for σ in [0.5, 0.7, 1.0, 1.5, 2.0]
             noise = Gumbel(μ, σ)
@@ -38,7 +38,18 @@ end
     end
 end
 
-# write tests here
+@testset "Gumbel noise — input shape preservation" begin
+    noise = Gumbel(0.2, 0.3)
+    V1 = SMatrix{2,3}(1:6)
+    z1 = ECV_and_probabilities(noise, V)
+    @test z1.π isa SMatrix{2,3}
+    z2 = ECV_and_probabilities(noise, SVector(V))
+    @test z2.π isa SVector{6} && z2.π == vec(z1.π) && z2.ECV == z1.ECV
+    z3 = ECV_and_probabilities(noise, Tuple(V))
+    @test z3.π isa NTuple{6} && z3.π == Tuple(z1.π) && z3.ECV == z1.ECV
+    z4 = ECV_and_probabilities(noise, collect(V))
+    @test z4.π isa Matrix && z4.π == collect(z1.π) && z4.ECV == z1.ECV
+end
 
 ## NOTE add JET to the test environment, then uncomment
 # using JET
