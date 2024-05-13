@@ -51,11 +51,11 @@ end
     @test z4.π isa Matrix && z4.π == collect(z1.π) && z4.ECV == z1.ECV
 end
 
-## NOTE add JET to the test environment, then uncomment
-# using JET
-# @testset "static analysis with JET.jl" begin
-#     @test isempty(JET.get_reports(report_package(DiscreteChoiceCalculations, target_modules=(DiscreteChoiceCalculations,))))
-# end
+using JET
+@testset "static analysis with JET.jl" begin
+    @test isempty(JET.get_reports(report_package(DiscreteChoiceCalculations,
+                                                 target_modules=(DiscreteChoiceCalculations,))))
+end
 
 ## NOTE add Aqua to the test environment, then uncomment
 # @testset "QA with Aqua" begin
