@@ -9,6 +9,6 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 [compat]
 Aqua = "0.8.14"
 Distributions = "0.25.125"
-JET = "0.11.3"
+JET = "0.11.3, 0.12"
 Sobol = "1.5.0"
 StaticArrays = "1.9.18"
